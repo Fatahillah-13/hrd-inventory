@@ -42,5 +42,28 @@ class InitialSetupSeeder extends Seeder
             ]
         );
         $admin->assignRole($adminRole);
+
+        $adminDivisi = User::firstOrCreate(
+            ['email' => 'admin_divisi@hrd.local'],
+            [
+                'name' => 'Admin Divisi',
+                'password' => Hash::make('password123'),
+                'division_id' => Division::firstWhere('code', 'HRIT')->id,
+            ]
+        );
+        $adminDivisi->assignRole($adminDivisiRole);
+
+        $atkMaster = User::firstOrCreate(
+            ['email' => 'atk_master@hrd.local'],
+            [
+                'name' => 'ATK Master',
+                'password' => Hash::make('password123'),
+                'division_id' => null,
+            ]
+        );
+        $atkMaster->assignRole($atkMasterRole);
+
+
+
     }
 }
