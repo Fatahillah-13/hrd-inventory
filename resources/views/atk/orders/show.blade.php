@@ -7,6 +7,9 @@
     </x-slot>
 
     <div class="py-6">
+        <a href="{{ route('atk.orders.collect.show', $order) }}" class="px-4 py-2 border rounded">
+            Ambil Barang
+        </a>
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
             <div class="bg-white p-4 rounded shadow space-y-2">
@@ -24,7 +27,8 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="text-left p-3">Barang</th>
-                            <th class="text-left p-3">Qty</th>
+                            <th class="text-left p-3">Qty Requested</th>
+                            <th class="text-left p-3">Qty Ready</th>
                             <th class="text-left p-3">Status Item</th>
                         </tr>
                     </thead>
@@ -33,6 +37,7 @@
                             <tr class="border-t">
                                 <td class="p-3">{{ $line->item->name }}</td>
                                 <td class="p-3">{{ $line->qty_requested }}</td>
+                                <td class="p-3">{{ $line->qty_ready }}</td>
                                 <td class="p-3">{{ $line->status }}</td>
                             </tr>
                         @endforeach

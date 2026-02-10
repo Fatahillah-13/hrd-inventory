@@ -5,9 +5,10 @@ namespace App\Http\Controllers\AtkMaster;
 use App\Http\Controllers\Controller;
 use App\Models\AtkOrder;
 use App\Models\AtkOrderStatusHistory;
+use App\Services\AtkOrderStatusService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InboxController extends Controller
 {
@@ -62,6 +63,8 @@ class InboxController extends Controller
                     // item ikut approved (step 3)
                     $order->items()->update(['status' => 'approved']);
 
+                    AtkOrderStatusService::recalcAndUpdate($order, $userId, 'Auto set to processing after approve.');
+
                     AtkOrderStatusHistory::create([
                         'atk_order_id' => $order->id,
                         'from_status' => $from,
@@ -83,7 +86,7 @@ class InboxController extends Controller
                         'from_status' => $from,
                         'to_status' => 'rejected',
                         'changed_by' => $userId,
-                        'note' => 'Order di-reject: ' . $data['rejected_reason'],
+                        'note' => 'Order di-reject: '.$data['rejected_reason'],
                     ]);
                 }
             }

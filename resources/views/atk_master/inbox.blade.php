@@ -68,6 +68,7 @@
                                     <th class="text-left p-3">Requester</th>
                                     <th class="text-left p-3">Status</th>
                                     <th class="text-left p-3">Tanggal</th>
+                                    <th class="text-left p-3">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,10 +83,14 @@
                                         <td class="p-3">{{ $o->requester->name }}</td>
                                         <td class="p-3">{{ $o->status }}</td>
                                         <td class="p-3">{{ $o->created_at->format('d-m-Y H:i') }}</td>
+                                        <td class="p-3">
+                                            <a class="text-blue-600"
+                                                href="{{ route('atk_master.orders.show', $o) }}">Proses</a>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td class="p-3" colspan="6">Tidak ada data.</td>
+                                        <td class="p-3" colspan="7">Tidak ada data.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -7,8 +7,10 @@ use App\Http\Controllers\Atk\CartController;
 use App\Http\Controllers\Atk\CatalogController;
 use App\Http\Controllers\Atk\OrderController;
 use App\Http\Controllers\AtkMaster\InboxController;
+use App\Http\Controllers\AtkMaster\OrderProcessController;
 use App\Http\Controllers\AtkMaster\RecapController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Atk\CollectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'));
@@ -43,6 +45,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+        Route::get('/orders/{order}/collect', [CollectController::class, 'show'])
+            ->name('orders.collect.show');
+        Route::post('/orders/{order}/collect', [CollectController::class, 'collect'])
+            ->name('orders.collect');
+
     });
 
     // ATK Master routes
@@ -51,6 +58,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/bulk-decision', [InboxController::class, 'bulkDecision'])->name('bulk_decision');
         Route::get('/recap', [RecapController::class, 'index'])->name('recap');
         Route::get('/recap/export', [RecapController::class, 'export'])->name('recap.export');
+
+        Route::get('/orders/{order}', [OrderProcessController::class, 'show'])
+            ->name('orders.show');
+        Route::post('/orders/{order}/set-ready', [OrderProcessController::class, 'setReady'])
+            ->name('orders.set_ready');
+
     });
 
 });

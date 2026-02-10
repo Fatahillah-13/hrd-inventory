@@ -11,7 +11,16 @@ class AtkOrderItem extends Model
         'atk_order_id',
         'item_id',
         'qty_requested',
+        'qty_ready',
+        'qty_collected',
+        'ready_at',
+        'collected_at',
         'status',
+    ];
+
+    protected $casts = [
+    'ready_at' => 'datetime',
+    'collected_at' => 'datetime',
     ];
 
     public function order(): BelongsTo
